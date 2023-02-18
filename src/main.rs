@@ -1,28 +1,11 @@
 use ansi_term::{
-    Colour::{Blue, Purple, Red, White, Yellow, RGB},
-    Style,
+    Colour::{Blue, Purple, Red, Yellow, RGB},
 };
 use array2d::Array2D;
 use clap::{App, Arg};
 use raster::Color;
 use std::clone::Clone;
 use std::vec;
-use std::cmp::{min, max};
-
-
-struct GridBoundary {
-    north: usize,
-    south: usize,
-    west: usize,
-    east: usize
-}
-
-// impl for GridBoundary{
-//     fn include(&mut self, i:usize, j:usize) {
-//         self.north = min(self.north, i);
-
-//     }
-// }
 
 fn main() {
     let matches = App::new("Sandpile wiever")
@@ -57,7 +40,6 @@ fn main() {
     let num_iter = matches.value_of("iterations").unwrap().parse::<usize>().unwrap();
     let nr = size;
     let nc = size;
-    // let num_iter = 100;
     let num_update_progress = 20;
     let mut a = array2d::Array2D::filled_with(0, nr, nc);
     let mut b = array2d::Array2D::filled_with(0, nr, nc);
@@ -72,9 +54,7 @@ fn main() {
         }
         update_sandpile(&a, &mut b, &k_rain_cells);
         a.clone_from(&b);
-        // thread::sleep(sleep_duration);
     }
-    // print!("{}", format_sandpile(&b));
     save_as_img(&b, matches.value_of("output_image").unwrap());
 }
 
@@ -132,18 +112,7 @@ fn update_grain(array: &Array2D<u16>, i: usize, j: usize, rain_cells: &[(usize, 
     new_val
 }
 
-// fn update_grain_bounded(array: &Array2D<u16>, i:usize, j:usize, rain_cells: &[(usize, usize)], bounds:&mut GridBoundary) -> u16 {
-//     // bounds is the limit of non-zero values
-//     if ! ( i > bounds.north -1  && i < bounds.south +1  && j > bounds.west -1 && j < bounds.east + 1) {
-//         // too far from non-null values
-//         0
-//     } else {
-//         let new_val = update_grain(array, i, j, rain_cells);
-//         if new_val > 0 {
-//             bounds.north = std::cmp::min()
-//         }
-//     }
-// }
+
 
 fn update_sandpile(old: &Array2D<u16>, new: &mut Array2D<u16>, rain_cells: &[(usize, usize)]) {
     assert_eq!(old.column_len(), new.column_len());
