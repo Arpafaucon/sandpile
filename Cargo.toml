@@ -1,0 +1,14 @@
+[package]
+name = "sandpile"
+version = "0.1.0"
+authors = ["greg"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+array2d = "0.2.1"
+ansi_term = "0.12"
+# ggez = "0.5"
+raster="0.2.0"
+clap="~2.33.1"
